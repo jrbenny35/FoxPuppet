@@ -45,6 +45,9 @@ install:
   # Install Tox
   - pip install tox
 
+  - "firefox --version"
+  - "geckodriver --version"
+
 build_script:
   - python setup.py install"
 
