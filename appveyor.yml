@@ -6,13 +6,13 @@ environment:
 
   matrix:
     - JOB: "Python 2.7"
-      TOXENV: "py27"
+      TOXENV: "py27-windows"
       PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.13"
       PYTHON_ARCH: "64"
 
     - JOB: "Python 3.5"
-      TOXENV: "py35"
+      TOXENV: "py35-windows"
       PYTHON: "C:\\Python35"
       PYTHON_VERSION: "3.5.2"
       PYTHON_ARCH: "64"
@@ -20,10 +20,6 @@ init:
   - "ECHO %TOXENV%"
 
 install:
-  - ECHO "Filesystem root:"
-  - ps: "ls \"C:/\""
-  - ps: "ls"
-
   # Install Python (from the official .msi of http://python.org) and pip when
   # not already installed.
   - ps: if (-not(Test-Path($env:PYTHON))) { & appveyor\install.ps1 }
@@ -41,16 +37,11 @@ install:
   # about it being out of date.
   - "pip install --disable-pip-version-check --user --upgrade pip"
 
-  # Install the build dependencies of the project. If some dependencies contain
-  # compiled extensions and are not provided as pre-built wheel packages,
-  # pip will build them from source using the MSVC compiler matching the
-  # target Python version and architecture
-  - pip install -r requirements/flake8.txt -r requirements/tests.txt"
-
   # Make a python3.4.bat file in the current directory so that tox will find it
   # and python3.4 will mean what we want it to.
   - "python -c \"import os; open('python{0}.{1}.bat'.format(*os.environ['TOXENV'][2:]), 'w').write('@{0}\\\\python \\x25*\\n'.format(os.environ['PYTHON']))\""
 
+  # Install Tox
   - pip install tox
 
 build_script:
