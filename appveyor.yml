@@ -47,7 +47,7 @@ install:
 
   - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win64.zip","geckodriver.zip")
   - "ls"
-  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver
+  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver -Force
   - "ls"
 
 build_script:
