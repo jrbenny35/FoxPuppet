@@ -45,7 +45,7 @@ install:
   # compiled extensions and are not provided as pre-built wheel packages,
   # pip will build them from source using the MSVC compiler matching the
   # target Python version and architecture
-  - "%CMD_IN_ENV% pip install -r requirements/flake8.txt -r requirements/tests.txt"
+  - pip install -r requirements/flake8.txt -r requirements/tests.txt"
 
   # Make a python3.4.bat file in the current directory so that tox will find it
   # and python3.4 will mean what we want it to.
