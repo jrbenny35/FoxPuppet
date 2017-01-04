@@ -6,13 +6,13 @@ environment:
 
   matrix:
     - JOB: "Python 2.7"
-      TOXENV: "py27-windows"
+      TOXENV: "py27"
       PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.13"
       PYTHON_ARCH: "64"
 
     - JOB: "Python 3.5"
-      TOXENV: "py35-windows"
+      TOXENV: "py35"
       PYTHON: "C:\\Python35"
       PYTHON_VERSION: "3.5.2"
       PYTHON_ARCH: "64"
