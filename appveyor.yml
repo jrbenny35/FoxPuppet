@@ -48,7 +48,7 @@ install:
   - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win64.zip","geckodriver.zip")
   - "ls"
   - ps: Expand-Archive C:\geckodriver.zip -OutputPath C:\Tools\WebDriver
-  = "ls"
+  - "ls"
 
 build_script:
   - python setup.py install"
