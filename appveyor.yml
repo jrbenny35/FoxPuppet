@@ -18,7 +18,6 @@ environment:
       PYTHON_ARCH: "64"
 init:
   - "ECHO %TOXENV%"
-  - "ECHO %PATH%"
 
 install:
   # Install Python (from the official .msi of http://python.org) and pip when

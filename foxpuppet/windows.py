@@ -32,7 +32,7 @@ class Windows(object):
     def wait_for_new_window(self):
         handles_before = self.selenium.window_handles
         yield
-        WebDriverWait(self.selenium, 25).until(
+        WebDriverWait(self.selenium, 60).until(
             lambda driver: len(handles_before) != len(driver.window_handles))
 
     @property
