@@ -41,13 +41,13 @@ install:
   # and python3.4 will mean what we want it to.
   - "python -c \"import os; open('python{0}.{1}.bat'.format(*os.environ['TOXENV'][2:]), 'w').write('@{0}\\\\python \\x25*\\n'.format(os.environ['PYTHON']))\""
 
-  - ps: choco install firefox -packageParameters "os=win64"
+  - ps: choco upgrade firefox
 
   - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win64.zip","geckodriver.zip")
   - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver -Force
 
 build_script:
-  
+
   # Install Tox
   - "pip install tox"
 
