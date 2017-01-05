@@ -44,7 +44,7 @@ install:
   # Install Tox
   - pip install tox
 
-  - ps: choco install choco install firefox-nightly -pre --ignore-checksums
+  - ps: choco install firefox -packageParameters "os=win64"
 
   - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win64.zip","geckodriver.zip")
   - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver -Force
