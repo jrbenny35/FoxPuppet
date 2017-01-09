@@ -20,52 +20,14 @@ init:
   - "ECHO %TOXENV%"
 
 install:
-  # Install Python (from the official .msi of http://python.org) and pip when
-  # not already installed.
-  - ps: if (-not(Test-Path($env:PYTHON))) { & appveyor\install.ps1 }
-
-  # Prepend newly installed Python to the PATH of this build (this cannot be
-  # done from inside the powershell script as it would require to restart
-  # the parent CMD process).
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-
-  # Check that we have the expected version and architecture for Python
-  - "python --version"
-  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
-
-  # Upgrade to the latest version of pip to avoid it displaying warnings
-  # about it being out of date.
-  - "pip install --disable-pip-version-check --user --upgrade pip"
-
-  # Make a python3.4.bat file in the current directory so that tox will find it
-  # and python3.4 will mean what we want it to.
-  - "python -c \"import os; open('python{0}.{1}.bat'.format(*os.environ['TOXENV'][2:]), 'w').write('@{0}\\\\python \\x25*\\n'.format(os.environ['PYTHON']))\""
-
-  - ps: choco upgrade firefox
-
-  - ps: Write-Host "Installing FireFox Selenium driver..." -ForegroundColor Cyan
-
-  - ps: $destPath = 'C:\Tools\WebDriver'
-
-  - ps:  if(-not (Test-Path $destPath)) {
-        New-Item $destPath -ItemType directory -Force | Out-Null
-        }
-
-  - ps: $zipPath = "$env:USERPROFILE\geckodriver-v0.12.0-win32.zip"
-  - ps: (New-Object Net.WebClient).DownloadFile('https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win32.zip', $zipPath)
-  - ps: 7z x $zipPath -o"$destPath" -aoa
-  - ps: del $zipPath
-
-  - ps: copy "$destPath\geckodriver.exe" "$destPath\wires.exe"
-
-  - ps: Add-Path $destPath
-
-  - ps: Write-Host "Installed FireFox Selenium driver" -ForegroundColor Green
-
-build_script:
-
-  # Install Tox
-  - "pip install tox"
+  - choco install firefox
+  - ps: Get-ChildItem -Path HKLM:\SOFTWARE\Wow6432Node\Mozilla -recurse
+  - ps: Get-ChildItem -Path HKLM:\SOFTWARE\Wow6432Node\mozilla.org -recurse
+  - choco install selenium-gecko-driver
+  - 'set PATH=C:\tools\selenium;%PATH%'
+  - '%PYTHON_HOME%\Scripts\pip --version'
+  - '%PYTHON_HOME%\Scripts\pip install tox'
+build_script: off
 
 test_script:
   - "%PYTHON%\\Scripts\\tox"
