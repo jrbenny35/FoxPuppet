@@ -42,24 +42,10 @@ install:
   - "python -c \"import os; open('python{0}.{1}.bat'.format(*os.environ['TOXENV'][2:]), 'w').write('@{0}\\\\python \\x25*\\n'.format(os.environ['PYTHON']))\""
 
   - ps: choco upgrade firefox
-  Write-Host "Installing FireFox Selenium driver..." -ForegroundColor Cyan
 
-  - $destPath = "C:\Tools\WebDriver"
-
-  - if(-not (Test-Path $destPath)) {
-      New-Item $destPath -ItemType directory -Force | Out-Null
-    }
-
-  - $zipPath = "$env:USERPROFILE\geckodriver-v0.13.0-win32.zip"
-  - (New-Object Net.WebClient).DownloadFile('https://github.com/mozilla/geckodriver/releases/download/v0.13.0/geckodriver-v0.13.0-win32.zip', $zipPath)
-  - 7z x $zipPath -o"$destPath" -aoa
-  - del $zipPath
-
-  - copy "$destPath\geckodriver.exe" "$destPath\wires.exe"
-
-  Add-Path $destPath
-
-  Write-Host "Installed FireFox Selenium driver" -ForegroundColor Green
+  - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.13.0/geckodriver-v0.13.0-win64.zip","geckodriver.zip")
+  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver\wires.exe -Force
+  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver\geckodriver.exe -Force
 
 build_script:
 
