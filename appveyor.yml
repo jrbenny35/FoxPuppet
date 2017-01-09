@@ -43,9 +43,24 @@ install:
 
   - ps: choco upgrade firefox
 
-  - ps: (New-Object System.Net.WebClient).DownloadFile("https://github.com/mozilla/geckodriver/releases/download/v0.13.0/geckodriver-v0.13.0-win64.zip","geckodriver.zip")
-  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver\wires.exe -Force
-  - ps: Expand-Archive C:\Windows\System32\geckodriver.zip -DestinationPath C:\Tools\WebDriver\geckodriver.exe -Force
+  -ps: Write-Host "Installing FireFox Selenium driver..." -ForegroundColor Cyan
+
+  -ps: $destPath = 'C:\Tools\WebDriver'
+
+  -ps:  if(-not (Test-Path $destPath)) {
+        New-Item $destPath -ItemType directory -Force | Out-Null
+        }
+
+  -ps: $zipPath = "$env:USERPROFILE\geckodriver-v0.12.0-win32.zip"
+  -ps: (New-Object Net.WebClient).DownloadFile('https://github.com/mozilla/geckodriver/releases/download/v0.12.0/geckodriver-v0.12.0-win32.zip', $zipPath)
+  -ps: 7z x $zipPath -o"$destPath" -aoa
+  -ps: del $zipPath
+
+  -ps: copy "$destPath\geckodriver.exe" "$destPath\wires.exe"
+
+  -ps: Add-Path $destPath
+
+  -ps: Write-Host "Installed FireFox Selenium driver" -ForegroundColor Green
 
 build_script:
 
