@@ -38,6 +38,6 @@ class BaseWindow(object):
         self.selenium.close()
 
     def switch_to(self):
-        """Switches to the window."""
+        """Switches selenium focus to the window."""
 
         self.selenium.switch_to.window(self.handle)
