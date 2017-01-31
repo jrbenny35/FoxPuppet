@@ -11,8 +11,6 @@ from foxpuppet.windows import BaseWindow
 class BrowserWindow(BaseWindow):
 
     """Representation of a browser window.
-
-        :extends: :class:`foxpuppet.windows.BaseWindow`
     """
 
     _file_menu_button_locator = (By.ID, 'file-menu')
@@ -23,7 +21,10 @@ class BrowserWindow(BaseWindow):
 
     @property
     def is_private(self):
-        """:returns: True if this is a Private Browsing window.
+        """
+            Property that checks if the specified window is private or not.
+
+            :returns: True if this is a Private Browsing window.
             :return type: bool
         """
 
@@ -42,8 +43,9 @@ class BrowserWindow(BaseWindow):
 
         :param private: Optional parameter to open a private browsing window.
                         Defaults to False.
+        :type private: bool
 
-        :returns: A BrowserWindow object of the newly opened window.
+        :returns: :py:class:`~foxpuppet.windows.browser.BrowserWindow` object of the newly opened window.
         :return type: object
         """
 
