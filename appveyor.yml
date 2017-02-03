@@ -25,6 +25,7 @@ install:
   - ps: Get-ChildItem -Path HKLM:\SOFTWARE\Wow6432Node\mozilla.org -recurse
   - choco install selenium-gecko-driver
   - 'set PATH=C:\tools\selenium;%PATH%'
+  - 'ECHO %PATH%'
   - '%PYTHON%\\Scripts\\pip --version'
   - '%PYTHON%\\Scripts\\pip install tox'
 build: off
