@@ -1,0 +1,33 @@
+version: "{build}-{branch}"
+
+environment:
+
+  CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci\\run_with_env.cmd"
+
+  matrix:
+    - JOB: "Python 2.7"
+      TOXENV: "py27"
+      PYTHON: "C:\\Python27"
+      PYTHON_VERSION: "2.7.13"
+      PYTHON_ARCH: "64"
+
+    - JOB: "Python 3.5"
+      TOXENV: "py35"
+      PYTHON: "C:\\Python35"
+      PYTHON_VERSION: "3.5.2"
+      PYTHON_ARCH: "64"
+init:
+  - "ECHO %TOXENV%"
+
+install:
+  - choco install firefox
+  - ps: Get-ChildItem -Path HKLM:\SOFTWARE\Wow6432Node\Mozilla -recurse
+  - ps: Get-ChildItem -Path HKLM:\SOFTWARE\Wow6432Node\mozilla.org -recurse
+  - choco install selenium-gecko-driver
+  - 'set PATH=C:\tools\selenium;%PATH%'
+  - '%PYTHON%\\Scripts\\pip --version'
+  - '%PYTHON%\\Scripts\\pip install tox'
+build: off
+
+test_script:
+  - "%PYTHON%\\Scripts\\tox"
