@@ -6,7 +6,7 @@ from setuptools import setup
 
 
 setup(name='FoxPuppet',
-      version=1.0.2,
+      version='1.0.2',
       description='Firefox user interface testing model for use with Selenium',
       long_description=open('README.rst').read(),
       author='Firefox Test Engineering',
